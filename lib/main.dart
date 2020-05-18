@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: 'my_plants',
       routes: {
         '/': (context) => WelcomePage(),
         'add_plant': (context) => AddPlant(),
