@@ -5,7 +5,7 @@ import 'package:blume/modules/plant.dart';
 class MyPlants extends StatelessWidget {
   List<Plant> plants = [
     Plant(nickname: 'Pothos', waterLevel: 2, waterWeeks: 1),
-    Plant(nickname: 'terry', waterLevel: 1, waterWeeks: 3),
+    Plant(nickname: 'Fern', waterLevel: 3, waterWeeks: 4),
   ];
 
   @override
@@ -70,15 +70,17 @@ class PlantItem extends StatelessWidget {
         width: 375,
         child: Row(
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(
-                left: 30,
-              ),
-              child: Text(
-                plant.nickname,
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 20,
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: 30,
+                ),
+                child: Text(
+                  plant.nickname,
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
                 ),
               ),
             ),
@@ -94,8 +96,16 @@ class PlantItem extends StatelessWidget {
                       Image.asset('images/dropcolour.png',
                           height: 30, width: 20),
                       //Image from Good Ware at www.flaticon.com
-                      Image.asset('images/dropbw.png', height: 30, width: 20),
-                      Image.asset('images/dropbw.png', height: 30, width: 20),
+                      plant.waterLevel >= 2
+                          ? Image.asset('images/dropcolour.png',
+                              height: 30, width: 20)
+                          : Image.asset('images/dropbw.png',
+                              height: 30, width: 20),
+                      plant.waterLevel == 3
+                          ? Image.asset('images/dropcolour.png',
+                              height: 30, width: 20)
+                          : Image.asset('images/dropbw.png',
+                              height: 30, width: 20),
                     ],
                   ),
                 ],
@@ -103,11 +113,26 @@ class PlantItem extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.only(top: 30, left: 40),
+                padding: EdgeInsets.only(top: 30),
                 child: Column(
                   children: <Widget>[
-                    Text('Once'),
-                    Text('a week'),
+                    plant.waterWeeks == 1
+                        ? Padding(
+                            padding: EdgeInsets.only(top: 10),
+                            child: Text(
+                              'Weekly',
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                          )
+                        : Padding(
+                            padding: EdgeInsets.only(left: 20),
+                            child: Text(
+                              'Every ${plant.waterWeeks} weeks',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          )
                   ],
                 ),
               ),
