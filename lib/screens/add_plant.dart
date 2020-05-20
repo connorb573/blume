@@ -40,26 +40,7 @@ class _AddPlantState extends State<AddPlant> {
                   fontSize: 40),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(30),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30),
-                ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Give your plant a name',
-                  ),
-                ),
-              ),
-            ),
-          ),
+          PlantInputField(hintText: 'Give your plant a name'),
           Padding(
             padding: EdgeInsets.all(30),
             child: Container(
@@ -134,7 +115,140 @@ class _AddPlantState extends State<AddPlant> {
               ),
             ),
           ),
+          PlantQuestionBox(
+            text: 'Does this need weekly or daily watering?',
+            padding: EdgeInsets.only(left: 50, top: 30),
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return CupertinoPicker(
+                    backgroundColor: Colors.white,
+                    onSelectedItemChanged: (value) {
+                      setState(() {});
+                    },
+                    itemExtent: 32.0,
+                    children: const [
+                      Text('Daily'),
+                      Text('Weekly'),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
+          PlantQuestionBox(
+            text: 'How many times does this need watering?',
+            padding: EdgeInsets.only(left: 45, top: 30),
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return CupertinoPicker(
+                    backgroundColor: Colors.white,
+                    onSelectedItemChanged: (value) {
+                      setState(() {});
+                    },
+                    itemExtent: 32.0,
+                    children: const [
+                      Text('1'),
+                      Text('2'),
+                      Text('3'),
+                      Text('4'),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 140, top: 60),
+            child: FlatButton(
+              onPressed: () {},
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(30),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Text(
+                    'Add Plant!',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
+      ),
+    );
+  }
+}
+
+class PlantInputField extends StatelessWidget {
+  final String hintText;
+
+  PlantInputField({this.hintText});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(30),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(30),
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.only(left: 10),
+          child: TextField(
+            textAlign: TextAlign.center,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: hintText,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PlantQuestionBox extends StatelessWidget {
+  final String text;
+  final EdgeInsets padding;
+  final Function onPressed;
+
+  PlantQuestionBox({this.text, this.padding, this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: padding,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(30),
+          ),
+        ),
+        child: Expanded(
+          child: GestureDetector(
+            onTap: onPressed,
+            child: Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Text(
+                text,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
